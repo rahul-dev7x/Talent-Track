@@ -4,6 +4,7 @@ import cookieParser from "cookie-parser";
 import cors from "cors"
 import { connectDb } from "./database/connectDb.js";
 import { createUserTable } from "./schema/user.schema.js";
+import { createCompanyTable } from "./schema/company.schema.js";
 
 const app=express();
 dotenv.config({});
@@ -29,6 +30,7 @@ app.listen(PORT,()=>{
     console.log(`Backend Server is running on Port:${PORT}`);
     connectDb();
     createUserTable();
+    createCompanyTable();
 })
 
 

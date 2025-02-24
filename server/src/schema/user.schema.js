@@ -14,11 +14,12 @@ export const createUserTable = () => {
     profile_bio TEXT,
     profile_resume VARCHAR(255),
     resume_original_name VARCHAR(255),
-    company_id INT,
     profile_photo VARCHAR(255) DEFAULT '',
+     company_id INT,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-    FOREIGN KEY (company_id) REFERENCES company(id) ON DELETE CASCADE 
+     FOREIGN KEY (company_id) REFERENCES company(id) ON DELETE CASCADE 
+   
     )
     `
     connection.query(query, (err) => {
@@ -30,3 +31,4 @@ export const createUserTable = () => {
         }
     })
 }
+
