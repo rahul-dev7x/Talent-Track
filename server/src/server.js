@@ -5,6 +5,7 @@ import cors from "cors"
 import { connectDb } from "./database/connectDb.js";
 import { createUserTable } from "./schema/user.schema.js";
 import { createCompanyTable } from "./schema/company.schema.js";
+import { createSkillsTable } from "./schema/skills.schema.js";
 
 const app=express();
 dotenv.config({});
@@ -31,6 +32,7 @@ app.listen(PORT,()=>{
     connectDb();
     createUserTable();
     createCompanyTable();
+    createSkillsTable()
 })
 
 
