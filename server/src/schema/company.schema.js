@@ -13,6 +13,7 @@ export const createCompanyTable=()=>{
     location VARCHAR(255),
     user_id INT,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
     FOREIGN KEY (user_id) REFERENCES user(id) ON DELETE CASCADE
     )`
     connection.query(query,(err)=>{

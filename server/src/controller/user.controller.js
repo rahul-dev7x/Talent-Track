@@ -124,14 +124,19 @@ export const logout=(req,res)=>{
 
 
 
-export const updateProfile=async(req,res)=>{
-    try{
-        
+// export const updateProfile=async(req,res)=>{
+//     try{
+//         const {fullName,email,phoneNumber,bio,skills}=req.body;
+//         if(!fullName || !email || !phoneNumber || !bio || !skills)
+//         {
+//             return res.status(400).json({message:"There is nothing to update.",success:false,error:true})
+//         }
 
-    }
-    catch(error)
-    {
-        console.log(error);
-        return res.status(500).json({message:"Error while trying to Update User Details.",success:false,error:true})
-    }
-}
+
+//     }
+//     catch(error)
+//     {
+//         console.log(error);
+//         return res.status(500).json({message:"Error while trying to Update User Details.",success:false,error:true})
+//     }
+// }
