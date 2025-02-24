@@ -1,10 +1,6 @@
 import { connection } from "../database/connectDb.js"
 
 
-
-
-
-
 export const createApllicationTable = () => {
     const query = `CREATE TABLE IF NOT EXISTS application (
     id INT AUTO_INCREMENT PRIMARY KEY,

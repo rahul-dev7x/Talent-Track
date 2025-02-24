@@ -8,7 +8,7 @@ export const createUserTable = () => {
     id INT AUTO_INCREMENT PRIMARY KEY,
     fullName VARCHAR(255) NOT NULL,
     email VARCHAR(255) NOT NULL UNIQUE,
-    phone_number VARCHAR(20) NOT NULL,
+    phone_number VARCHAR(20) ,
     password VARCHAR(255) NOT NULL,
     role ENUM("student","recruiter") NOT NULL DEFAULT "student",
     profile_bio TEXT,
