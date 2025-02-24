@@ -15,10 +15,8 @@ export const createUserTable = () => {
     profile_resume VARCHAR(255),
     resume_original_name VARCHAR(255),
     profile_photo VARCHAR(255) DEFAULT '',
-     company_id INT,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-     FOREIGN KEY (company_id) REFERENCES company(id) ON DELETE CASCADE 
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
    
     )
     `

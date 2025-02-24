@@ -2,7 +2,7 @@ import { connection } from "../database/connectDb.js";
 import cloudinary from "../utills/cloudinary.js";
 import dataUri from "../utills/dataUri.js";
 import bcrypt from "bcryptjs"
-
+import jwt from "jsonwebtoken"
 
 
 
@@ -48,5 +48,53 @@ export const register = async (req, res) => {
     catch (error) {
         console.log(error);
         return res.status(500).json({ message: "There is Something Error While Register.", success: false, error: true })
+    }
+}
+
+
+
+
+export const login = async (req, res) => {
+    try {
+        const { email, password,role } = req.body;
+        if (!email || !password) {
+            return res.status(400).json({ message: "Please Provide All The Credentials.", success: false, error: true })
+        }
+
+        const isRegistered = `SELECT * FROM user WHERE email=?`
+        connection.query(isRegistered, [email], async (err, result) => {
+            if (err) {
+                return res.status(400).json({ message: "Database error.", success: false, error: true })
+            }
+            //console.log("login_result",result)
+            if (result.length === 0) {
+                return res.status(400).json({ message: "You are not registered.", success: false, error: true })
+            }
+            let userData = result[0]
+            const isCorrectPassword = await bcrypt.compare(password, userData.password);
+            //console.log(isCorrectPassword);
+            if (!isCorrectPassword) {
+                return res.status(400).json({ message: "Wrong Password.", success: false, error: true })
+            }
+            if (role != userData.role) {
+                return res.status(400).json({ message: "Account Does Not Exist With Current Role.", success: false, error: true })
+            }
+            //console.log(userData)
+            const {password:_,...userDataWoPassword}=userData;
+            console.log(userDataWoPassword)
+            const token=await jwt.sign(userDataWoPassword,process.env.JWT_SECRET_KEY,{expiresIn:"10d"});
+            res.cookie(userDataWoPassword.role==="student"?"userToken":"recruiterToken",token,{
+                httpOnly:true,
+                sameSite:"strict",
+                secure:process.env.NODE_ENV==="Production",
+                maxAge:10*24*60*60*1000
+            });
+            return res.status(200).json({message:`${userData.fullName} Logged In Successfully`,success:true,error:false,data:userDataWoPassword})
+        })
+
+    }
+    catch (error) {
+        console.log(error);
+        return res.status(500).json({ message: "Error WHile trying to Login.", success: false, error: true })
     }
 }
