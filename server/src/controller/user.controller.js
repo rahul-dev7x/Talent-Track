@@ -81,7 +81,7 @@ export const login = async (req, res) => {
             }
             //console.log(userData)
             const {password:_,...userDataWoPassword}=userData;
-            console.log(userDataWoPassword)
+            //console.log(userDataWoPassword)
             const token=await jwt.sign(userDataWoPassword,process.env.JWT_SECRET_KEY,{expiresIn:"10d"});
             res.cookie(userDataWoPassword.role==="student"?"userToken":"recruiterToken",token,{
                 httpOnly:true,
@@ -96,5 +96,42 @@ export const login = async (req, res) => {
     catch (error) {
         console.log(error);
         return res.status(500).json({ message: "Error WHile trying to Login.", success: false, error: true })
+    }
+}
+
+
+export const logout=(req,res)=>{
+    try{
+        res.clearCookie("userToken",{
+            httpOnly:true,
+            sameSite:"strict",
+            secure:process.env.NODE_ENV==="Production"
+        });
+        res.clearCookie("recruiterToken",{
+            httpOnly:true,
+            sameSite:"strict",
+            secure:process.env.NODE_ENV==="Production"
+        })
+        return res.status(200).json({message:"User Logged Out Success!",success:true,error:false})
+
+    }
+    catch(error)
+    {
+        console.log(error);
+        return res.status(500).json({message:"Error While Trying To Logout.",success:false,error:true})
+    }
+}
+
+
+
+export const updateProfile=async(req,res)=>{
+    try{
+        
+
+    }
+    catch(error)
+    {
+        console.log(error);
+        return res.status(500).json({message:"Error while trying to Update User Details.",success:false,error:true})
     }
 }
