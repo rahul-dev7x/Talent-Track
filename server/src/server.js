@@ -2,6 +2,7 @@ import express from "express";
 import dotenv from "dotenv"
 import cookieParser from "cookie-parser";
 import cors from "cors"
+import { connectDb } from "./database/connectDb.js";
 
 const app=express();
 dotenv.config({});
@@ -15,6 +16,7 @@ const corsOptions={
 app.use(express.json());
 app.use(express.urlencoded({extended:true}));
 app.use(cors(corsOptions));
+app.use(cookieParser());
 
 
 
@@ -23,7 +25,8 @@ app.get("/",(_,res)=>{
 })
 
 app.listen(PORT,()=>{
-    console.log(`Backend Server is running on Port:${PORT}`)
+    console.log(`Backend Server is running on Port:${PORT}`);
+    connectDb();
 })
 
 

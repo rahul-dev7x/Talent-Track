@@ -1,0 +1,25 @@
+version: '3.8'
+
+services:
+  mysql:
+    image: mysql:8.0
+    container_name: talent_track_container
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: talent-track-db
+      MYSQL_USER: rahul
+      MYSQL_PASSWORD: password
+    ports:
+      - "5306:3306"
+    volumes:
+      - talent_track_data:/var/lib/mysql
+    networks:
+      - talent_track_network
+
+volumes:
+  talent_track_data:
+
+networks:
+  talent_track_network:
+    driver: bridge
