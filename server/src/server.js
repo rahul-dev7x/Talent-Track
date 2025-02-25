@@ -9,7 +9,8 @@ import { createJobRequirements } from "./schema/jobrequirements.schema.js";
 import { createJobSchema } from "./schema/job.schema.js";
 import { createApllicationTable } from "./schema/application.schema.js";
 import userRoutes from "./routes/user.routes.js";
-import companyRoutes from "./routes/company.routes.js"
+import companyRoutes from "./routes/company.routes.js";
+import jobRoutes from "./routes/jobs.routes.js"
 
 const app=express();
 dotenv.config({});
@@ -28,6 +29,7 @@ app.use(cookieParser());
 
 app.use("/api/v1/user",userRoutes);
 app.use("/api/v1/company",companyRoutes);
+app.use("/api/v1/job",jobRoutes);
 
 
 
