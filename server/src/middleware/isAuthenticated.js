@@ -13,6 +13,10 @@ export const isAuthenticated=async(req,res,next)=>{
         {
             return res.status(400).json({message:"Invalid Token!",success:false,error:true})
         }
+        if(decode.role!=="student")
+        {
+            return res.status(401).json({message:"You don't have access for this action.",success:false,error:true})
+        }
         //console.log("jwt_decode",decode);
         req.userId=decode.id;
         next();
