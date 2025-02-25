@@ -5,7 +5,6 @@ import cors from "cors"
 import { connectDb } from "./database/connectDb.js";
 import { createUserTable } from "./schema/user.schema.js";
 import { createCompanyTable } from "./schema/company.schema.js";
-import { createSkillsTable } from "./schema/skills.schema.js";
 import { createJobRequirements } from "./schema/jobrequirements.schema.js";
 import { createJobSchema } from "./schema/job.schema.js";
 import { createApllicationTable } from "./schema/application.schema.js";
@@ -39,7 +38,6 @@ app.listen(PORT,()=>{
     connectDb();
     createUserTable();
     createCompanyTable();
-    createSkillsTable();
     createJobSchema();
     createJobRequirements();
     createApllicationTable();
