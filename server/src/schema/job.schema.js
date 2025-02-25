@@ -14,7 +14,9 @@ export const createJobSchema=()=>{
     location VARCHAR(255),
     position INT NOT NULL,
     company_id INT,
-    FOREIGN KEY (company_id) REFERENCES company(id) ON DELETE CASCADE
+    created_by INT,
+    FOREIGN KEY (company_id) REFERENCES company(id) ON DELETE CASCADE,
+    FOREIGN KEY (created_by) REFERENCES user(id) ON DELETE CASCADE
     )`
     connection.query(query,(err)=>{
         if(err)
