@@ -19,5 +19,9 @@ export const apiUrl = {
     login: {
         url: "/api/v1/user/login",
         method: "post"
+    },
+    logout:{
+        url:"/api/v1/user/logout",
+        method:"get"
     }
 }

@@ -1,30 +1,49 @@
 import { Button } from "@/components/ui/button";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
 import { Avatar, AvatarImage } from "@/components/ui/avatar";
 import { SlLogout } from "react-icons/sl";
 import { GrLinkNext } from "react-icons/gr";
-import { Link } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { Link, useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover";
+import { axiosError } from "../../utills/axiosError";
+import { toast } from "sonner";
+import { apiUrl, axiosInstance } from "../../utills/api";
+import { setUser } from "../../redux/auth";
 
 const Navbar = () => {
-  const {user}=useSelector(state=>state.auth)
+  const { user } = useSelector((state) => state.auth);
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const handleLogout = async () => {
+    try {
+      const response = await axiosInstance({
+        ...apiUrl.logout,
+        withCredentials: true,
+      });
+      //console.log(response);
+      if (response.data.success) {
+        dispatch(setUser(null));
+        navigate("/");
+        toast.success(response.data.message);
+      }
+    } catch (error) {
+      const apiErrMessage = axiosError(error);
+      toast.error(apiErrMessage);
+    }
+  };
   return (
     <div className="bg-white shadow-md fixed top-0 left-0 w-full  p-4 ">
       <div className="max-w-7xl flex justify-between items-center mx-auto">
         <div>
           <Link to={"/"}>
-          <h1 className="text-2xl font-semibold">
-            Talent<span className="text-2xl text-red-600">Track</span>
-          </h1>
+            <h1 className="text-2xl font-semibold">
+              Talent<span className="text-2xl text-red-600">Track</span>
+            </h1>
           </Link>
-          
         </div>
         <div className="flex items-center justify-between gap-6">
           <div className="flex justify-between items-center gap-3">
@@ -37,33 +56,37 @@ const Navbar = () => {
           <div className="flex items-center gap-4 ">
             {user ? (
               <>
-                <DropdownMenu>
-                  <DropdownMenuTrigger>
-                    <Avatar>
-                      <AvatarImage src="https://github.com/shadcn.png" />
-                    </Avatar>
-                  </DropdownMenuTrigger>
-                  <DropdownMenuContent className="cursor-pointer w-48 bg-white p-8">
-                    <DropdownMenuLabel className="border-b-2">
+                <Popover>
+                  <PopoverTrigger asChild>
+                    <button className="outline-none">
+                      <Avatar>
+                        <AvatarImage src="https://github.com/shadcn.png" />
+                      </Avatar>
+                    </button>
+                  </PopoverTrigger>
+                  <PopoverContent
+                    align="center"
+                    sideOffset={18}
+                    className="w-48 bg-white    p-4 shadow-md rounded-lg"
+                  >
+                    <div className="border-b pb-2 mb-2 font-semibold text-gray-700">
                       My Account
-                    </DropdownMenuLabel>
-                    <DropdownMenuSeparator />
-                    <div className="">
-                      <div className="flex items-center gap-2 ">
-                        <GrLinkNext />
-                        <DropdownMenuItem className="cursor-pointer">
-                          My Profile
-                        </DropdownMenuItem>
-                      </div>
-                      <div className="flex gap-2 items-center ">
-                        <SlLogout />
-                        <DropdownMenuItem className="cursor-pointer">
-                          Logout
-                        </DropdownMenuItem>
-                      </div>
                     </div>
-                  </DropdownMenuContent>
-                </DropdownMenu>
+                    <div className="flex flex-col gap-2">
+                      <Link to="/profile" className="flex items-center gap-2 ">
+                        <GrLinkNext />
+                        My Profile
+                      </Link>
+                      <button
+                        className="flex items-center gap-2 "
+                        onClick={handleLogout}
+                      >
+                        <SlLogout />
+                        Logout
+                      </button>
+                    </div>
+                  </PopoverContent>
+                </Popover>
               </>
             ) : (
               <>
