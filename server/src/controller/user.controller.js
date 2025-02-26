@@ -11,8 +11,14 @@ export const register = async (req, res) => {
             return res.status(400).json({ message: "Please Provide All the required Fields.", success: false, error: true });
         }
         const profile_img = req.file;
-        const fileUri = dataUri(profile_img);
-        const cloudResponse = await cloudinary.uploader.upload(fileUri.content, { folder: "profile_images" });
+        let profile_img_link=null;
+        if(profile_img)
+        {
+            const fileUri = dataUri(profile_img);
+            const cloudResponse = await cloudinary.uploader.upload(fileUri.content, { folder: "profile_images" });
+            profile_img_link = cloudResponse.secure_url;
+        }
+        
 
         const [existingUser] = await connection.promise().query("SELECT * FROM user WHERE email=?", [email]);
         if (existingUser.length > 0) {
@@ -20,9 +26,9 @@ export const register = async (req, res) => {
         }
 
         const hashedPassword = await bcrypt.hash(password, 10);
-        const profile_img_link = cloudResponse.secure_url;
+        
         await connection.promise().query("INSERT INTO user (fullName,email,password,role,profile_photo) VALUES (?,?,?,?,?)",
-            [fullName, email, hashedPassword, role, profile_img_link]);
+            [fullName, email, hashedPassword, role,profile_img_link]);
 
         return res.status(201).json({ message: `${fullName} Register Success.`, success: true, error: false });
     } catch (error) {

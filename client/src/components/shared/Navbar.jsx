@@ -15,12 +15,15 @@ import { Link } from "react-router-dom";
 const Navbar = () => {
   let user = false;
   return (
-    <div className="bg-white shadow-sm p-4">
+    <div className="bg-white shadow-md fixed top-0 left-0 right-0 p-4 z-50 mb-4">
       <div className="max-w-7xl flex justify-between items-center mx-auto">
         <div>
+          <Link to={"/"}>
           <h1 className="text-2xl font-semibold">
             Talent<span className="text-2xl text-red-600">Track</span>
           </h1>
+          </Link>
+          
         </div>
         <div className="flex items-center justify-between gap-6">
           <div className="flex justify-between items-center gap-3">

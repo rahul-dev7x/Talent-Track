@@ -5,6 +5,9 @@ const Home = () => {
   return (
     <div>
       <Navbar/>
+      <div className='min-h-[3200px]'>
+
+      </div>
     </div>
   )
 }
