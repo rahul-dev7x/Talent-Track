@@ -16,8 +16,8 @@ const Profile = () => {
   return (
     <div>
       <Navbar />
-      <div className="mt-36 p-8 ml-32 mr-32 flex justify-center items-center shadow-[0px_4px_10px_rgba(0,0,0,0.2)] rounded-xl  max-w-7xl min-h-32">
-        <div className="flex flex-col space-y-4 min-w-7xl  w-full max-w-4xl p-6">
+      <div className="mt-36 mx-auto p-8  flex justify-center items-center  shadow-[0px_4px_10px_rgba(0,0,0,0.2)] rounded-xl  max-w-4xl min-h-32">
+        <div className="flex flex-col space-y-4 max-w-2xl w-full p-6">
           <div className="flex flex-col space-y-3">
             <div className="flex justify-between items-center ">
               <h1 className="text-[36px] text-[#2D2D2D] font-bold ">
