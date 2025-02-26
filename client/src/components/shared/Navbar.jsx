@@ -36,7 +36,7 @@ const Navbar = () => {
     }
   };
   return (
-    <div className="bg-white shadow-md fixed top-0 left-0 w-full  p-4 ">
+    <div className="bg-white shadow-md fixed top-0 left-0 w-full p-4">
       <div className="max-w-7xl flex justify-between items-center mx-auto">
         <div>
           <Link to={"/"}>
@@ -48,9 +48,17 @@ const Navbar = () => {
         <div className="flex items-center justify-between gap-6">
           <div className="flex justify-between items-center gap-3">
             <ul className="flex gap-3 cursor-pointer">
-              <Link to="/">Home</Link>
+              <Link to="/"><li>
+              Home
+                </li></Link>
+              
+              <Link to={"/jobs"}>
               <li>Jobs</li>
+              </Link>
+              <Link to={"/browse"}>
               <li>Browse</li>
+              </Link>
+              
             </ul>
           </div>
           <div className="flex items-center gap-4 ">
@@ -67,7 +75,7 @@ const Navbar = () => {
                   <PopoverContent
                     align="center"
                     sideOffset={18}
-                    className="w-48 bg-white    p-4 shadow-md rounded-lg"
+                    className="w-48 bg-white p-4 shadow-md rounded-lg"
                   >
                     <div className="border-b pb-2 mb-2 font-semibold text-gray-700">
                       My Account

@@ -8,7 +8,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { RadioGroup } from "@/components/ui/radio-group";
 import { axiosError } from "../../utills/axiosError.js";
 import { toast } from "sonner";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { setLoading } from "../../redux/auth/index.js";
 
 const SignUp = () => {
@@ -21,6 +21,7 @@ const SignUp = () => {
     profile_img: "",
   });
   const navigate = useNavigate();
+  const dispatch=useDispatch()
   const {loading}=useSelector(state=>state.auth);
   const [profileImg, setProfileImg] = useState(
     "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT-HmAlYRaMiTx6PqSGcL9ifkAFxWHVPvhiHQ&s"
@@ -54,7 +55,7 @@ const SignUp = () => {
     if (formData.profile_img) {
       data.append("profile_img", formData.profile_img);
     }
-dispatchEvent(setLoading(true))
+dispatch(setLoading(true))
     try {
       const response = await axiosInstance({
         ...apiUrl.register,
@@ -85,7 +86,7 @@ dispatchEvent(setLoading(true))
       toast.error(apiErr);
     }
     finally{
-      dispatchEvent(setLoading(false))
+      dispatch(setLoading(false))
     }
   };
 
