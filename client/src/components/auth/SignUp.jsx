@@ -8,6 +8,8 @@ import { Link, useNavigate } from "react-router-dom";
 import { RadioGroup } from "@/components/ui/radio-group";
 import { axiosError } from "../../utills/axiosError.js";
 import { toast } from "sonner";
+import { useSelector } from "react-redux";
+import { setLoading } from "../../redux/auth/index.js";
 
 const SignUp = () => {
   const [formData, setFormData] = useState({
@@ -19,6 +21,7 @@ const SignUp = () => {
     profile_img: "",
   });
   const navigate = useNavigate();
+  const {loading}=useSelector(state=>state.auth);
   const [profileImg, setProfileImg] = useState(
     "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT-HmAlYRaMiTx6PqSGcL9ifkAFxWHVPvhiHQ&s"
   );
@@ -51,7 +54,7 @@ const SignUp = () => {
     if (formData.profile_img) {
       data.append("profile_img", formData.profile_img);
     }
-
+dispatchEvent(setLoading(true))
     try {
       const response = await axiosInstance({
         ...apiUrl.register,
@@ -80,6 +83,9 @@ const SignUp = () => {
       //console.log(axios.isAxiosError(error))
       const apiErr = axiosError(error);
       toast.error(apiErr);
+    }
+    finally{
+      dispatchEvent(setLoading(false))
     }
   };
 
@@ -183,7 +189,7 @@ const SignUp = () => {
             </div>
 
             <Button className="w-full py-3 rounded-lg font-semibold text-lg bg-gray-800 text-white hover:bg-gray-600 hover:text-white transition duration-100">
-              Sign Up
+              {loading?"Signing Up":"Sign Up Now"}
             </Button>
           </form>
 

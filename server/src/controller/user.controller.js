@@ -40,7 +40,7 @@ export const register = async (req, res) => {
 export const login = async (req, res) => {
     try {
         const { email, password, role } = req.body;
-        if (!email || !password) {
+        if (!email || !password || !role) {
             return res.status(400).json({ message: "Please Provide All The Credentials.", success: false, error: true });
         }
 
@@ -63,7 +63,7 @@ export const login = async (req, res) => {
         res.cookie(userDataWoPassword.role === "student" ? "userToken" : "recruiterToken", token, {
             httpOnly: true,
             sameSite: "strict",
-            secure: process.env.NODE_ENV === "Production",
+            secure: process.env.NODE_ENV==="production",
             maxAge: 10 * 24 * 60 * 60 * 1000
         });
 
