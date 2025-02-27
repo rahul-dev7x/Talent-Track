@@ -23,5 +23,9 @@ export const apiUrl = {
     logout:{
         url:"/api/v1/user/logout",
         method:"get"
-    }
+    },
+    updateprofile:{
+        url:"/api/v1/user/profile/update",
+        method:"post"
+    },
 }

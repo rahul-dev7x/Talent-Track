@@ -51,7 +51,7 @@ export const getCompany = async (req, res) => {
         if (companies.length === 0) {
             return res.status(400).json({ message: "No Companies Available.", success: false, error: true });
         }
-        
+        //console.log(compnaies)
         return res.status(200).json({ message: "All Companies Found Successfully.", success: true, error: false, data: companies });
     } catch (error) {
         console.log(error);
@@ -76,7 +76,7 @@ export const getCompanyById = async (req, res) => {
             return res.status(400).json({ message: "No Company Found.", success: false, error: true });
         }
         
-        return res.status(200).json({ message: "Company Details Found Successfully.", success: true, error: false, data: company[0] });
+        return res.status(200).json({ message: "Company Details Found Successfully.", success: true, error: false, data: company});
     } catch (error) {
         console.log(error);
         return res.status(500).json({ message: "Error while trying to get company information.", success: false, error: true });

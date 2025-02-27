@@ -87,21 +87,20 @@ export const logout = (req, res) => {
 
 export const updateProfile = async (req, res) => {
     try {
-        const { fullName, email, phoneNumber, bio } = req.body;
+        const { fullName, email, phone_number, profile_bio } = JSON.parse(JSON.stringify(req.body));
         const user_id = req.userId;
         const resume = req.file;
-        //         console.log("resume",resume)
-        //         const fileBuffer = resume.buffer.toString("base64");
-        // const fileUri = `data:${resume.mimetype};base64,${fileBuffer}`;
-        // console.log(fileUri)
+       //console.log(req.body)
+        
+        
 
         let updateFields = [];
         let updateValues = [];
 
         if (fullName) { updateFields.push("fullName=?"); updateValues.push(fullName); }
         if (email) { updateFields.push("email=?"); updateValues.push(email); }
-        if (phoneNumber) { updateFields.push("phone_number=?"); updateValues.push(phoneNumber); }
-        if (bio) { updateFields.push("profile_bio=?"); updateValues.push(bio); }
+        if (phone_number) { updateFields.push("phone_number=?"); updateValues.push(phone_number); }
+        if (profile_bio) { updateFields.push("profile_bio=?"); updateValues.push(profile_bio); }
         if (resume) {
             const fileUri = dataUri(resume);
             const cloudinaryResponse = await cloudinary.uploader.upload(fileUri.content, { folder: "resume" });
@@ -127,7 +126,8 @@ export const updateProfile = async (req, res) => {
         }
 
         const userData = updatedUser.map(({ password, ...restData }) => restData);
-        return res.status(200).json({ message: "User Data Updated Successfully.", success: true, error: false, data: userData });
+        //console.log("userData",userData)
+        return res.status(200).json({ message: "User Data Updated Successfully.", success: true, error: false, data: userData[0] });
     } catch (error) {
         console.log(error);
         return res.status(500).json({ message: "Error while trying to Update User Details.", success: false, error: true });
