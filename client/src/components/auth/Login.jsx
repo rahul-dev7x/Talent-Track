@@ -33,7 +33,7 @@ const Login = () => {
         data: formData,
         withCredentials: true,
       });
-      //console.log(response);
+      console.log(response);
       const data = response.data;
       if (data.success) {
         setFormData({
@@ -43,6 +43,7 @@ const Login = () => {
           role: "",
         });
         toast.success(data.message);
+        localStorage.setItem("userToken",data.token)
         dispatch(setUser(data.data));
         navigate(data.data.role === "student" ? "/" : "/admin");
       } else if (data.error) {

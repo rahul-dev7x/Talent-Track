@@ -1,13 +1,15 @@
 
 import Navbar from './../shared/Navbar';
+import CategoryCarousel from './CategoryCarousel';
+import HeroSection from './HeroSection';
 
 const Home = () => {
   return (
     <div>
       <Navbar/>
-      <div className='min-h-[3200px]'>
-
-      </div>
+      <HeroSection/>
+      <CategoryCarousel/>
+      
     </div>
   )
 }

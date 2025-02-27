@@ -25,10 +25,13 @@ const Navbar = () => {
         withCredentials: true,
       });
       //console.log(response);
+      //console.log("cookie",localStorage.getItem("userToken"));
+
       if (response.data.success) {
         dispatch(setUser(null));
         navigate("/");
         toast.success(response.data.message);
+        localStorage.setItem("userToken","")
       }
     } catch (error) {
       const apiErrMessage = axiosError(error);
@@ -62,7 +65,7 @@ const Navbar = () => {
             </ul>
           </div>
           <div className="flex items-center gap-4 ">
-            {user ? (
+            {user  ? (
               <>
                 <Popover>
                   <PopoverTrigger asChild>
