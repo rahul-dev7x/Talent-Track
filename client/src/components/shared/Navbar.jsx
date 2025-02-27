@@ -39,7 +39,7 @@ const Navbar = () => {
     }
   };
   return (
-    <div className="bg-white shadow-md fixed top-0 left-0 w-full p-4">
+    <div className="bg-white shadow-md fixed top-0 left-0 w-full p-4 z-50">
       <div className="max-w-7xl flex justify-between items-center mx-auto">
         <div>
           <Link to={"/"}>

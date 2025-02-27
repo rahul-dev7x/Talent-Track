@@ -1,7 +1,9 @@
 
+import Footer from '../shared/Footer';
 import Navbar from './../shared/Navbar';
 import CategoryCarousel from './CategoryCarousel';
 import HeroSection from './HeroSection';
+import LatestJobs from './LatestJobs';
 
 const Home = () => {
   return (
@@ -9,6 +11,8 @@ const Home = () => {
       <Navbar/>
       <HeroSection/>
       <CategoryCarousel/>
+      <LatestJobs/>
+      <Footer/>
       
     </div>
   )
